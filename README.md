@@ -1,2 +1,2 @@
-# Fetch Me My GitHub Repos!
-An ES6, Angular, and Webpack based mini-app that displays a list of repos by GitHub username.
+# Bluprint Angular
+An ES6, Angular, and Webpack based app using Contentful CMS for Bluprint
