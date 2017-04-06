@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "postinstall": "gulp webpack",
     "build": "gulp webpack",
     "start": "gulp serve"
   },
@@ -45,6 +46,6 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
     "postcss-loader": "^1.1.1",
-    "webpack": "^1.12.14"
+    "webpack": "^1.14.0"
   }
 }
