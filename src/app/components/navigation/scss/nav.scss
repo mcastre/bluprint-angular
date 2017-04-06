@@ -1,0 +1,25 @@
+@import './settings/variables';
+
+.primary-sidebar {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  width: 250px;
+  padding: 2rem 2.5rem;
+}
+
+.primary-sidebar-nav {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  font-family: $app-heading-font;
+  text-transform: uppercase;
+  margin-top: 30rem;
+  > li {
+    padding: 0.75rem 0;
+    a {
+      color: #999;
+      letter-spacing: 1px;
+    }
+  }
+}

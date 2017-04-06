@@ -1,106 +1,51 @@
-'use strict';
-
+var path    = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-//var autoprefixer = require('autoprefixer');
-var path = require('path');
-var ENV = process.env.npm_lifecycle_event;
-var isProd = ENV === 'build';
 
-module.exports = (function makeWebpackConfig () {
-  var config = {};
-
-  config.entry = {
-    app: './src/app.js'
-  };
-
-  config.output = {
-    path: path.resolve(__dirname, './build'),
-    publicPath: isProd ? '/' : 'http://localhost:8080/',
-    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
-  };
-
-  config.sassLoader = {
-    includePaths: [ 'src/style' ]
-  };
-
-  if (isProd) {
-    config.devtool = 'source-map';
-  } else {
-    config.devtool = 'eval-source-map';
-  }
-
-  config.resolve = {
-    modulesDirectories: [
-      'node_modules',
-      'src/templates'
+module.exports = {
+  devtool: 'sourcemap',
+  entry: {},
+  module: {
+    loaders: [
+       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
+       { test: /\.html$/, loader: 'raw' },
+       {
+           test   : /\.woff/,
+           loader : require.resolve("url-loader") + '?prefix=font/&limit=10000&mimetype=application/font-woff&name=assets/[hash].[ext]'
+       },
+       {
+           test   : /\.ttf/,
+           loader : require.resolve("file-loader") + '?prefix=font/&name=assets/[hash].[ext]'
+       },
+       {
+           test   : /\.eot/,
+           loader : require.resolve("file-loader") + '?prefix=font/&name=assets/[hash].[ext]'
+       },
+       {
+           test   : /\.svg/,
+           loader : require.resolve("file-loader") + '?prefix=font/&name=assets/[hash].[ext]'
+       },
+       { test: /\.scss$/, loader: 'style!css?sourceMap!sass?sourceMap' },
+       { test: /\.css$/, loader: 'style!css' }
     ]
-  };
-
-  config.module = {
-    preLoaders: [],
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['ng-annotate', 'babel'],
-      exclude: /node_modules/
-    }, {
-      test: /\.css$/,
-      loader: 'style!css!'
-    }, {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(
-        'style-loader', // backup style loader
-        'css-loader!sass-loader'
-      )
-    }, {
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-      loader: 'file'
-    }, {
-      test: /\.html$/,
-      loader: 'ngtemplate?relativeTo=' + (path.resolve(__dirname, './src')) + '/!html',
-      exclude: /index\.html/
-    }]
-  };
-
-  /**
-   * PostCSS
-   * Reference: https://github.com/postcss/autoprefixer-core
-   * Add vendor prefixes to your css
-   */
-  // config.postcss = [
-  //   autoprefixer({
-  //     browsers: ['last 2 version']
-  //   })
-  // ];
-
-  config.plugins = [];
-
-  config.plugins.push(
+  },
+  plugins: [
+    // Injects bundles in your index.html instead of wiring all manually.
+    // It also adds hash to all injected assets so we don't have problems
+    // with cache purging during deployment.
     new HtmlWebpackPlugin({
-      template: 'index.html',
-      inject: 'body'
+      template: 'src/index.html',
+      inject: 'body',
+      hash: true
     }),
-    new ExtractTextPlugin('src/stylesheets/app.css', {allChunks: false})
-  );
 
-  if (isProd) {
-    config.plugins.push(
-      new webpack.NoErrorsPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
-      new CopyWebpackPlugin([{
-        from: path.resolve(__dirname, './src')
-      }], { ignore: ['*.html'] })
-    );
-  }
-
-  config.devServer = {
-    contentBase: './src',
-    stats: 'minimal'
-  };
-
-  return config;
-}());
+    // Automatically move all modules defined outside of application directory to vendor bundle.
+    // If you are using more complicated project structure, consider to specify common chunks manually.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module, count) {
+        return module.resource && module.resource.indexOf(path.resolve(__dirname, 'src')) === -1;
+      }
+    })
+  ]
+};

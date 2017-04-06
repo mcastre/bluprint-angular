@@ -1,0 +1,10 @@
+<section class="hero-featured-wrapper" style="background-image: url({{home.featuredImage}})">
+  <div class="article-date-box">
+    <p class="large-date">{{home.postCreatedDate | date: 'd.M.yy'}}</p>
+    <p class="post-number">Post 00001</p>
+  </div>
+  <div class="hero-heading-wrapper">
+    <h1 class="title-main has-underline">{{home.posts.fields.featuredPostTitle}}</h1>
+    <p class="title-description">{{home.posts.fields.shortDescription}}</p>
+  </div>
+</section>
