@@ -5,6 +5,7 @@ class HomeController {
     this.posts = {};
     this.featuredImage = null;
     this.postCreatedDate = null;
+    this.numberOfPosts = 0;
     this.getEntries();
   }
 
@@ -12,10 +13,12 @@ class HomeController {
     this.contentful
       .entries()
       .then(response => {
+        console.log(response);
         this.posts = response.data.items[0];
-        this.featuredImage = this.posts.fields.featuredImage.fields.file.url;
+        this.numberOfPosts = response.data.items.length;
+        this.featuredImage = this.posts.fields.post_featured_image.fields.file.url;
         this.postCreatedDate = this.posts.sys.createdAt;
-        console.log(this.posts);
+
       }, (err) => console.log(err));
   }
 

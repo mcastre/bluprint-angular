@@ -1,10 +1,8 @@
-<section class="hero-featured-wrapper" style="background-image: url({{home.featuredImage}})">
-  <div class="article-date-box">
-    <p class="large-date">{{home.postCreatedDate | date: 'd.M.yy'}}</p>
-    <p class="post-number">Post 00001</p>
-  </div>
+<section class="hero-featured-wrapper bp-display-block bp-dark-scrim" style="background-image: url({{home.featuredImage}})">
   <div class="hero-heading-wrapper">
-    <h1 class="title-main has-underline">{{home.posts.fields.featuredPostTitle}}</h1>
-    <p class="title-description">{{home.posts.fields.shortDescription}}</p>
+    <span class="post-category-text bp-text-white bp-text-caps bp-display-block">{{home.posts.sys.contentType.sys.id}}</span>
+    <span class="post-number">{{home.numberOfPosts < 10 ? '0'+home.numberOfPosts : home.numberOfPosts}}</span>
+    <h1 class="title-main">{{home.posts.fields.post_title}}</h1>
+    <a href="" class="bp-text-white bp-text-caps bp-display-block">Continue to article</a>
   </div>
 </section>

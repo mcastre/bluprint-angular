@@ -1,0 +1,65 @@
+@import './settings/_variables.scss';
+
+
+// Display
+
+$bp-display-values: (
+  inline,
+  block,
+  inline-block,
+  flex
+) !default;
+
+$bp-float-values: (
+  left,
+  right,
+  none
+) !default;
+
+@each $display-value in $bp-display-values {
+  &.bp-display-#{$display-value} { display: $display-value !important; }
+}
+
+@each $float-value in $bp-float-values {
+  &.bp-float-#{$float-value} { float: $float-value !important; }
+}
+
+
+// Typography
+
+.bp-text-white {
+  color: white !important;
+}
+
+.bp-text-bold {
+  font-weight: bold !important;
+}
+
+.bp-text-caps {
+  text-transform: uppercase !important;
+}
+
+.bp-text-regular {
+  font-weight: normal !important;
+}
+
+// Margins
+
+.bp-margin-0 {
+  margin: 0 !important;
+}
+
+// Scrim
+
+.bp-dark-scrim {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(44,94,133,0.45);
+  }
+}
