@@ -26,6 +26,7 @@
   padding-bottom: 4rem;
   text-align: left;
   font-family: $app-heading-font;
+  font-weight: $app-bold-weight;
 }
 
 .title-description {
@@ -46,6 +47,7 @@
   right: 10%;
   font-size: 19rem;
   line-height: 1;
-  font-weight: bold;
+  font-family: $app-heading-font;
+  font-weight: $app-bold-weight;
   color: rgba(255,255,255,0.2);
 }

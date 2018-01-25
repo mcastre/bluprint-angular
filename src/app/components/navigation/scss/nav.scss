@@ -1,25 +1,58 @@
-@import './settings/variables';
+@import './settings/_utilities.scss';
 
-.primary-sidebar {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  width: 250px;
-  padding: 2rem 2.5rem;
+.primary-header-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 99;
+  padding: 1rem;
 }
 
-.primary-sidebar-nav {
-  margin: 0;
-  padding-left: 0;
-  list-style: none;
-  font-family: $app-heading-font;
-  text-transform: uppercase;
-  margin-top: 30rem;
-  > li {
-    padding: 0.75rem 0;
-    a {
-      color: #999;
-      letter-spacing: 1px;
-    }
+.bp-logo-wrapper {
+  padding: 1rem;
+}
+
+.bp-header-logo {
+  background-image: url('../../../../app/images/bluprint-logo-white.svg');
+  background-repeat: no-repeat;
+  width: 121px;
+  height: 31px;
+  opacity: 0.8;
+  transform: scale(0.97);
+  -webkit-transition: all 200ms ease-out;
+  transition: all 200ms ease-out;
+  &:hover, &:focus {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.search-icon {
+  background-image: url('../../../../app/images/search-icon.svg');
+  background-repeat: no-repeat;
+  width: 23px;
+  height: 22px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.primary-nav-menu-icon {
+  background-image: url('../../../../app/images/nav-icon-white.svg');
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 18px;
+  margin-left: 6rem;
+  margin-top: 4px;
+  background-color: rgba(255,255,255,0);
+  border: 0;
+  opacity: 0.8;
+  transform: scale(0.95);
+  -webkit-transition: all 200ms ease-out;
+  transition: all 200ms ease-out;
+  &:hover, &:focus {
+    opacity: 1;
+    transform: scale(1.1);
   }
 }

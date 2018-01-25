@@ -13,7 +13,7 @@ class HomeController {
     this.contentful
       .entries()
       .then(response => {
-        console.log(response);
+        console.log('incoming data ---', response.data);
         this.posts = response.data.items[0];
         this.numberOfPosts = response.data.items.length;
         this.featuredImage = this.posts.fields.post_featured_image.fields.file.url;
